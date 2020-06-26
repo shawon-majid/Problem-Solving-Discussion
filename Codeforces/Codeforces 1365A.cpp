@@ -5,24 +5,15 @@ using namespace std;
 #define PI acos(-1)
 #define debug(x) cout << '>' << #x << " : " << x << endl;
 #define all(c) c.begin(), c.end()
-//#define m (pow(10, 9)+7)
 typedef unsigned long long ull;
 typedef long long ll;
- 
- 
- 
- 
+  
 int main()
 {
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
-    
-    
     int T;
     cin >> T;
     while(T--) {
         int n, m, r_zero(0), c_zero(0), move;
- 
         bool flag;
         cin >> n >> m;
         
@@ -33,7 +24,6 @@ int main()
             for(int j = 0; j < m; j++){
                 cin >> grid[i][j];   
             }
- 
         }
         for(int i = 0; i < n; i++){
             flag = true;
