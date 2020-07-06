@@ -3,16 +3,6 @@
 using namespace std;
 #define MAX 1000000
 #define PI acos(-1)
-#define debug(x) cout << '>' << #x << " : " << x << endl;
-#define all(c) c.begin(), c.end()
-#define F first
-#define S second
-#define pb push_back
-#define mp make_pair
-
-typedef unsigned long long ull;
-typedef long long ll;
-typedef vector< int > vi;
 
 /*
                                     Euler's Totient Function
