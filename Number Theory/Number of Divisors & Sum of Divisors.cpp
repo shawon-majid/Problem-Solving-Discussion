@@ -19,10 +19,14 @@ using namespace std;
                                 3. 3 = 2^0 * 3^1
                                 4. 6 = 2^1 * 3^1 
         So we have ai+1 choice for any prime number. So, 
+                        
                         NOD(n) = (a1+1)*(a2+1)...(ak+1)
-
-        Now lets calculate sum of divisors SOD(n) = (p1^(a1+1) - 1)/(p1 - 1)*(p2^(a2+1) - 1)/(p2 - 1)...(pk^(ak+1) - 1)/(pk - 1)
         
+        Now lets calculate sum of divisors
+        SOD(n) = (p1^(a1+1) - 1)/(p1 - 1)*(p2^(a2+1) - 1)/(p2 - 1)...(pk^(ak+1) - 1)/(pk - 1). Why?
+        Because we get that formula by simply adding all the combinations:
+                       
+                       SOD(n) = (2^0 * 3^0) + (2^1 * 3^0) + (2^0 * 3^1) + (2^1 * 3^1)
 */
 
 int NOD(int n){
