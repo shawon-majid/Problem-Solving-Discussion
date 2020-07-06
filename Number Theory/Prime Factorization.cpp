@@ -7,7 +7,7 @@ using namespace std;
 /*
                                         Prime Factorization
                                         -------------------
-        Primeb Factorization is one of the most important concept in number theory. So in simple
+        Prime Factorization is one of the most important concept in number theory. So in simple
         language, prime factorization means any number n can be factorized by using prime numbers
         only. which means,
                                  n = (p1^a1)*(p2^a2)........(pk^ak)
