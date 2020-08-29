@@ -9,6 +9,7 @@ using namespace std;
                                     ------------------------
         Euler's Totient Function gives us the number of co-primes between 1 to n.
         phi(n) = x means: x is the number of co-primes between 1 to n.
+        [a and b are called co-primes if gcd(a, b) = 1]
 
         ex: phi(12) = 4; here (1, 5, 7, 11) are the co-primes of 12 from 1 - 12.
 
