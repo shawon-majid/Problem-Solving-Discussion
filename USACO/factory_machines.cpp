@@ -18,10 +18,7 @@ int main() {
     for(int i = 0; i < n; i++){
         cin >> ara[i];
     }
-
     ll minel = *min_element(all(ara));
-
-
 
     ll ans = LLONG_MAX;
     ll high = t*minel, low  = 0;
