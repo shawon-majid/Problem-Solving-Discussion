@@ -38,24 +38,19 @@ int main() {
     }
     sort(all(vp));
     ll low = 1, high = vp[m-1].S - vp[0].F;
-    ll last, ans = LLONG_MIN;
+    ll last = LLONG_MIN, ans = LLONG_MIN;
 
     while(low <= high) {
-        ll mid = low + (high - low) / 2, c = 0, cur, r1, r2, count_in_range;
+        ll mid = low + (high - low) / 2;
         last = LLONG_MIN;
+        ll c = 0;
         for(ll i = 0; i < m; i++){
-            cur = last + mid;
-            if(cur <= vp[i].F){
-                r1 = vp[i].F, r2 = vp[i].S;
-                count_in_range = ((r2 - r1) / mid) + 1;
+            ll cur = last + mid;
+            if(cur <= vp[i].S){
+                ll r1 = max(cur, vp[i].F), r2 = vp[i].S;
+                ll count_in_range = ((r2 - r1) / mid) + 1;
                 c += count_in_range;
                 last = r1 + (count_in_range-1)*mid;
-            }
-            else if(cur > vp[i].F and cur <= vp[i].S){
-                r1 = cur, r2 = vp[i].S;
-                count_in_range = ((r2 - r1) / mid) + 1;
-                c += count_in_range;
-                last = r1 + (count_in_range-1)*mid;   
             }
         }
         if(c < n){
@@ -67,7 +62,6 @@ int main() {
         }
     }
     cout << ans << endl;
-
     
     return 0;
 }
