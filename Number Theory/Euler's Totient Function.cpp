@@ -12,9 +12,25 @@ using namespace std;
         [a and b are called co-primes if gcd(a, b) = 1]
 
         ex: phi(12) = 4; here (1, 5, 7, 11) are the co-primes of 12 from 1 - 12.
-
-        Now, Euler found a formula for finding totient function. which is:
-
+        
+        Now we can find 3 general case.
+        1. If a number is prime than all the numbers before that number is it's co-prime. for example,
+        phi(7) = 6; here [1, 2, 3, 4, 5, 6] are the co-primes of 7.
+        So, phi(p) = p - 1; where p is any prime number.
+        
+        2. If a number is power of a prime number (i.e n = p^k where k >= 1), then this number can only be co-prime with the numbers that is not 
+        divisible by that prime number. (try to find out why).
+        Now, there are n/p numbers which can be divided by p from 1 to n.
+          n/p = p^k/p = p^k-1;
+          So, phi(n) = p^k - p^(k-1) (where n = p^k and p is prime and k >= 1)
+         
+        3. if a and b are co-primes then, phi(a*b) = phi(a)*phi(b). Why this is true? For the explanation we need to understand Chinese remainder theorem.
+           And it will be covered later.
+           
+ 
+        By combining these 3 properties, Euler found a formula for finding totient function. which is:
+                    phi(n) = phi(p1^a1)*phi(p2^a2)*......*phi(pk^ak)
+                           = p1^a1 - p1^(a1 - 1)*p2^a2 - p2^(a2 - 1)*....*pk^ak - pk^(ak - 1)  
                     phi(n) = n*(1 - 1/p1)*(1 - 1/p2)....(1 - 1/pk)
 
         So, we will see two method of finding phi of a number.
