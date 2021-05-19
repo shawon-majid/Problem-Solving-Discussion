@@ -6,7 +6,9 @@ using namespace std;
 #define S second
 typedef unsigned long long ull;
 typedef long long ll;
+                            
 
+                // let's calculate pow(a, b) in a different way which is called binary exponentiation
 
 // recursive approach
 ll binPow(ll a, ll b){
