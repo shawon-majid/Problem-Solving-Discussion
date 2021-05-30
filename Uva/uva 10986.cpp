@@ -24,8 +24,8 @@ void dijkstra(int source){
     while(!q.empty()){
         int u = q.top().second;
         q.pop();        
-        for(auto v: adj[u]){
-            if(cost[u] + v.second < cost[v.first]){
+        for(auto v: adj[u]){                      
+            if(cost[u] + v.second < cost[v.first]){     /*notice the difference we don't use vis[] in dijakstra because we may need to visit a node more than once*/
                 cost[v.first] = cost[u] + v.second;
                 q.push({-cost[v.first], v.first});
             }
