@@ -35,7 +35,8 @@ int main() {
         for(int i = 0; i < n; i++){
             cin >> ara[i];
         }
-
+        
+        // make the array power of 2
         while(__builtin_popcount(n) != 1){
             ara.push_back(inf);
             n++;
@@ -50,6 +51,7 @@ int main() {
         for(int i = n-1; i >= 1; i--){
             tree[i] = min(tree[2*i], tree[2*i + 1]);
         }
+        
         cout << "Case " <<cs<<":"<< endl;
         while(q--){
             int l, r;
