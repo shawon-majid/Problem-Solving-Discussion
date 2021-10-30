@@ -13,7 +13,7 @@ vector <int> adj[mx];
 
 int cnt[mx];
 
-
+// tree traversal
 void dfs(int curNode, int prevNode){
     cnt[curNode] = 1;
 
