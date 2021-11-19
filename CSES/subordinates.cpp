@@ -1,4 +1,4 @@
-//Bismillahir Rahman-ir Rahim
+//Bismillahir Rahman-ir-Rahim
 #include <bits/stdc++.h>
 using namespace std;
 #define debug(x) cout << '>' << #x << " : " << x << endl;
