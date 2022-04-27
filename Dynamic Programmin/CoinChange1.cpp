@@ -9,6 +9,11 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 
+/*
+Check if it is possible to make sum of coins equal to n
+You can use the coins any number of times
+*/
+
 int possible[10000];
 
 int main(){
