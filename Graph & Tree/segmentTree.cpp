@@ -10,44 +10,84 @@ typedef unsigned long long ull;
 typedef long long ll;
 
 struct STree{   
+
+    // the array size must be 2^n for using this structure
+    // make it sure before passing the array
+
     vector <ll> tree;
     vector <ll> ara;
+    vector <ll> lazy;
+
     STree(vector < ll > pArray){
         ara = pArray;
         ll n = ara.size();
-        while(__builtin_popcount(n) != 1){
-            ara.push_back(0);
-            n++;
-        }
         tree.resize(2*n);
-        build(1, 0, n-1);
+        lazy.resize(2*n,0);
+        build(n);
     }   
 
     // build the tree
-    void build(ll node, ll nodeLeft, ll nodeRight){
-        if(nodeLeft == nodeRight){
-            tree[node] = ara[nodeLeft];
-            return;
+    void build(ll n){
+        for(ll i = 0; i < n; i++){
+            tree[n+i] = ara[i]; 
         }
-
-        ll lastInLeft = (nodeLeft+nodeRight)/2;
-        build(2*node, nodeLeft, lastInLeft);
-        build(2*node+1, lastInLeft+1, nodeRight);
-        tree[node] = tree[2*node] + tree[2*node+1];
-        return;
+        for(ll i = n-1; i >= 1; i--){
+            tree[i] = tree[2*i] + tree[(2*i)+1];
+        }
     }
 
 
-    ll query(ll node, ll nodeLeft, ll nodeRight, ll queryLeft, ll queryRight){
-        if(nodeLeft >= queryLeft and nodeRight <= queryRight){
-            return tree[node];
+    void updateOne(ll node, ll nodeLeft, ll nodeRight, ll rangeLeft, ll rangeRight, ll x){
+
+        if((nodeLeft >= rangeLeft) and (nodeRight <= rangeRight)){
+            tree[node] = x;
+            return;
         }
-        if(nodeLeft > queryRight || nodeRight < queryLeft){
+        if((nodeLeft > rangeRight) || (nodeRight < rangeLeft)){
+            return;
+        }
+        ll lastInLeft = nodeLeft + (nodeRight - nodeLeft)/2;
+        updateOne(2*node, nodeLeft, lastInLeft, rangeLeft, rangeRight, x); 
+        updateOne(2*node+1, lastInLeft+1, nodeRight, rangeLeft, rangeRight, x); 
+
+        tree[node] = tree[2*node] + tree[2*node+1];
+    }
+
+    void updateRange(ll node, ll nodeLeft, ll nodeRight, ll rangeLeft, ll rangeRight, ll x){
+        
+        ll numberOfChildren = nodeRight - nodeLeft + 1;
+
+        if(nodeLeft >= rangeLeft && nodeRight <= rangeRight){
+            
+            tree[node] = x*numberOfChildren;
+            lazy[node] = x;
+            return;
+        }
+
+        if((nodeLeft > rangeRight) || (nodeRight < rangeLeft)){
+            return;
+        }
+
+        ll lastInLeft = nodeLeft + (nodeRight - nodeLeft)/2;
+        updateRange(2*node, nodeLeft, lastInLeft, rangeLeft, rangeRight, x);
+        updateRange(2*node+1, lastInLeft+1, nodeRight, rangeLeft, rangeRight, x);
+
+        tree[node] = tree[2*node] + tree[2*node+1] + numberOfChildren*lazy[node];
+    }
+
+
+    ll query(ll node, ll nodeLeft, ll nodeRight, ll queryLeft, ll queryRight, ll carry){
+        ll numberOfChildren = nodeRight - nodeLeft + 1;
+
+        if((nodeLeft >= queryLeft) and (nodeRight <= queryRight)){
+            return tree[node] + (numberOfChildren* carry);
+        }
+        if((nodeLeft > queryRight) || (nodeRight < queryLeft)){
             return 0;
         }
-        ll lastInLeft = (nodeLeft+nodeRight)/2;
-        return query(2*node, nodeLeft, lastInLeft, queryLeft, queryRight) 
-             + query(2*node+1, lastInLeft+1, nodeRight, queryLeft, queryRight); 
+        ll lastInLeft = nodeLeft + (nodeRight - nodeLeft)/2;
+        return query(2*node, nodeLeft, lastInLeft, queryLeft, queryRight,  lazy[node]) 
+             + query(2*node+1, lastInLeft+1, nodeRight, queryLeft, queryRight,  lazy[node]); 
     }
 };
 
@@ -62,17 +102,32 @@ int main(){
     for(auto &x: ara){
         cin >> x;
     }
+    while(__builtin_popcount(n) != 1){
+        ara.push_back(0);
+        n++;
+    }
+    
 
     STree t(ara);
 
     while(q--){
-        ll a, b;
-        cin >> a >> b;
-        a--;
-        b--;
-        cout << t.query(1, 0, n-1, a, b) << endl;    
+        ll type, a, b;
+        cin >> type;
+        if(type == 1){
+            ll k, u;
+            cin >> k >> u;
+            k--;
+            t.updateRange(1, 0, n-1, k, k, u);
+        }
+        else{
+            cin >> a >> b;    
+            a--;
+            b--;
+            cout << t.query(1, 0, n-1, a, b, 0) << endl;    
+        }
+        
     }
 
 
     return 0;
-}
+}           
