@@ -46,51 +46,42 @@ void bitwiseSieve(int limit){
 }
 
 
-vector < int > isComposite;
+int arr[mx];
+ 
+void segmentedSieve ( int a, int b ) {
+    // you have to run bitwise sieve before running this function
 
-void segSieve(long long L, long long R){
-
-    bitwiseSieve(R);
-
-    isComposite.resize((((R-L+1) + 32 - 1)/32) + 1);
-
-    if(L == 1){
-        L++;
-    }
-
-    for(ll i = 0; primes[i]*primes[i] <= R; i++){
-
-        ll p = primes[i];
-
-        ll j = p*p;
-        
-        (j < L)  ? j = ((L+p-1)/p)*p : j = j; // if j is not in range, put it in range
-
-        for(; j <= R; j += p){
-            ll index = j-L;
-            
-            isComposite[index/32] = on(isComposite[index/32], index % 32);
+    if ( a == 1 ) a++;
+ 
+    int sqrtn = sqrt ( b );
+ 
+    memset ( arr, 0, sizeof arr ); // Make all index of arr 0.
+ 
+    for ( int i = 0; i < primes.size() && primes[i] <= sqrtn; i++ ) {
+        int p = primes[i];
+        int j = p * p;
+ 
+        // If j is smaller than a, then shift it inside of segment [a,b]
+        if ( j < a ) j = ( ( a + p - 1 ) / p ) * p;
+ 
+        for ( ; j <= b; j += p ) {
+            arr[j-a] = 1; // mark them as not prime
         }
     }
+ 
 }
 
-
-
-
 int main(){
+    
+    bitwiseSieve(1e5);
 
+    segmentedSieve(11, 19);
 
-    ll l, r;
-    cin >> l >> r;
-
-    segSieve(l, r);
-
-    for(ll i = l; i <= r; i++){
-        if(!check(isComposite[(i-l)/32], (i-l)%32)){
+    for(int i = 11; i <= 19; ++i){
+        if(arr[i-11] == 0){
             cout << i << endl;
         }
     }
 
 
-    return 0;
 }
